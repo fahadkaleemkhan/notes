@@ -2,4 +2,5 @@
 current
 ![[dad_bod.jpeg]]
 
-headed_toward![[headed_toward.jpeg]]
+headed_toward
+![[headed_toward.jpeg]]
