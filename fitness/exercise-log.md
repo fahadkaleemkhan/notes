@@ -1,11 +1,3 @@
 ### lower
 #### bodyweight squats
-5 squats, ddd h:mma Do MMM 'YY
-h:mma
-
-
-note_templates
-
-ddd_ha_D_MMM_YY
-journal
-note_templates/daily_template
+5 squats, Fri 5:30 3rd Apr '26
