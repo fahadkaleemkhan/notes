@@ -7,3 +7,5 @@ h:mma
 note_templates
 
 ddd_ha_D_MMM_YY
+journal
+note_templates/daily_template
