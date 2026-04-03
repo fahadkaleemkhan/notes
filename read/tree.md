@@ -1,4 +1,4 @@
 - programming book? 
-	- [[Boris Cherny - Programming TypeScript: Making Your JavaScript Applications Scale - O′Reilly (2019).pdf]]
+	- [[Boris-Cherny-Programming-TypeScript.pdf]]
 	- [[Functional-Programming-in-Scala.pdf]]
 	- 
