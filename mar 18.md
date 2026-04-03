@@ -1,0 +1,19 @@
+- [ ] namma league - suggest youtube video on blind women's cricket. 
+
+- met ifti's dads elder brother's son, vicky bhaiiya (real name hashim)
+	- he talked about 
+		- iran having upper hand by manufacturing missiles
+		- the world being truly interconnected -- strait of hormuz affecting business everywhere
+		- dubai's devaluation
+			- i asked, would it not be a good time to buy there?
+				- no, because it has now been proven vulnerable -- it is established that iran as a neighbour can hurt them, so dubai will never recover that value as long it is seen as vulnerable, similar to how j and k will always remain a conflict zone, so regardless of 371 or whatever, you cannot change the historical memory of the place -- that is of the promise of self-determination that was made to the people 80 years ago. So in fact if there is a referendum, even a sham one, that in fact would resolve the matter more than something like 371 that allows indians to go and buy land. 
+		- his wife, professor studying american literature, now globally recognised 
+		- his daughter, difficulties during covid (mother had to get daily subcutenous injections)
+		- the administrative legacy of ifti's dad and his uncle Iqbal
+	- ifti cant fucking stop talking
+	- ifti <-> vicky bhaiiya loop at the ground floor as vicky bhaiiya was about to leave. 
+		- ifti wouldnt fckin stop talking and making things awkward by saying something depressing and his cousin, who is a sweeetheart of the highest order, kept giving him gyan, and then they were in an infinite despairing remark <-> gyan loop
+			- don't lose heart
+			- your father he really loves you
+	- both vicky bhaiiya and aunty talking over aunty. i kept trying to bring her back into the convo. 
+	- i was thinking of 

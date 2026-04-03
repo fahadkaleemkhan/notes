@@ -1,0 +1,4 @@
+- very emotive people
+- kashmiri #mannerisms 
+	- "acha main chalta hun, mera jiggar" 
+	- ""
