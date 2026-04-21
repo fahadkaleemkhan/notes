@@ -1,0 +1,1 @@
+At least 50 serie a players have been caught running an illegal prostitution ring where one of the woman have . It goes 
