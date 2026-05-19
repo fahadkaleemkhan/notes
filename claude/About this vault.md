@@ -18,3 +18,9 @@
 
 # Desk systen
 Read Users/fahadrealreal/repos/desk to understand how to operate the desk system. 
+
+## Purpose of This Vault
+- Obsidian-based personal knowledge base and life hub
+- Intended to capture thoughts, interests, projects, and goals in one place
+- Activity/mood logging for mental health tracking over time
+- NOT primarily a coding space (though it might include some)
