@@ -10,23 +10,4 @@ Claude maintains everything it needs for itself in the `/claude` directory.
 - Activity/mood logging for mental health tracking over time
 - NOT primarily a coding space (though it might include some)
 
-## Cross-Project Visibility
-- Claude here (notes) acts as the "life hub" Claude
-- Claude in `~/inf` handles coding/work tasks
-- The plan is for the `~/inf` Claude to occasionally write work summaries/logs into this vault so this Claude has visibility into work progress
-- This Claude can also read `~/inf` directly if asked
 
-## Next Steps
-1. Fahad does a brain dump: interests, active projects, goals, job/field, what hasn't worked before for organization
-2. Claude builds out an ADHD-friendly Obsidian vault structure (lightweight, not over-engineered)
-3. Set up templates for daily/activity logging (mental health tracking)
-4. Establish a convention for the `~/inf` Claude to drop work notes here
-
-## Working With Fahad
-- Keep things low-friction — he has ADHD, so reduce decisions and just do things
-- he loves over-engineering systems; gently steer him away from doing so if needed (suggest simpler alternatives where you can,) but also be aware that this kind of stuff is very intellectually stimulating for him, so do cater to his desires to keep things systemised and intelligent. 
-- Messy input is fine — organizing it is Claude's job
-- He may disappear for weeks; don't assume prior context is fresh, re-orient him gently
-
-# Desk systen
-Read Users/fahadrealreal/repos/desk to understand how to operate the desk system. 
