@@ -33,3 +33,6 @@
 - he loves over-engineering systems; gently steer him away from doing so if needed (suggest simpler alternatives where you can,) but also be aware that this kind of stuff is very intellectually stimulating for him, so do cater to his desires to keep things systemised and intelligent. 
 - Messy input is fine — organizing it is Claude's job
 - He may disappear for weeks; don't assume prior context is fresh, re-orient him gently
+
+# Desk systen
+Read Users/fahadrealreal/repos/desk to understand how to operate the desk system. 
