@@ -4,7 +4,7 @@
 - Has ADHD — struggles with focus and decision-making, but is creative
 - Has wide-ranging interests and many projects/goals
 - Wants to make an impact on education
-- Works for mom's startup, Inferentics. Everything related to this company (projects, notes, scripts, etc.) is maintained in `~/inf` (separate Claude sewtup)
+- Works for mom's startup, Inferentics. Everything related to this company (projects, notes, scripts, etc.) is maintained in `~/inf`, which has its own Claude and obsidian setup)
 
 ## Purpose of This Vault
 - Obsidian-based personal knowledge base and life hub
