@@ -1,5 +1,8 @@
 # Notes Vault — Claude Context
 
+Obsidian-based personal knowledge base, task tracker, and life hub. 
+
+Claude maintains everything it needs for itself in the 
 ## About Fahad
 - Has ADHD — struggles with focus and decision-making, but is creative
 - Has wide-ranging interests and many projects/goals
