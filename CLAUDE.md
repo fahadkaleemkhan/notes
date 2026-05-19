@@ -10,10 +10,6 @@ Claude maintains everything it needs for itself in the `/claude` directory.
 - Activity/mood logging for mental health tracking over time
 - NOT primarily a coding space (though it might include some)
 
-## Setup Status
-- Vault structure has NOT been set up yet — Fahad still needs to do a brain dump (interests, projects, goals, job/field, past organization attempts) so Claude can build out a personalized folder structure, templates, and tagging system
-- Current vault contents are minimal: a diet plan, a "Wants and Ambitions" note, and some body goal images
-
 ## Cross-Project Visibility
 - Claude here (notes) acts as the "life hub" Claude
 - Claude in `~/inf` handles coding/work tasks
