@@ -1,10 +1,10 @@
 # Notes Vault — Claude Context
 
 ## About Fahad
-- Has ADHD — struggles with focus and decision-making, but is very creative
+- Has ADHD — struggles with focus and decision-making, but is creative
 - Has wide-ranging interests and many projects/goals
 - Wants to make an impact on education
-- Also has a coding project in `~/inf` (separate Claude instance runs there for work tasks)
+- Works for mom's startup, Inferentics. Everything related to this company (projects, notes, scripts, etc.) is maintained in `~/inf` (separate Claude sewtup)
 
 ## Purpose of This Vault
 - Obsidian-based personal knowledge base and life hub
