@@ -2,12 +2,7 @@
 
 Obsidian-based personal knowledge base, task tracker, and life hub. 
 
-Claude maintains everything it needs for itself in the 
-## About Fahad
-- Has ADHD — struggles with focus and decision-making, but is creative
-- Has wide-ranging interests and many projects/goals
-- Wants to make an impact on education
-- Works for mom's startup, Inferentics. Everything related to this company (projects, notes, scripts, etc.) is maintained in `~/inf`, which has its own Claude and obsidian setup)
+Claude maintains everything it needs for itself in the `/claude` directory. 
 
 ## Purpose of This Vault
 - Obsidian-based personal knowledge base and life hub
