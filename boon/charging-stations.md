@@ -1,0 +1,17 @@
+- select charging stations
+	- background: strict selection criteria for women auto driver
+		- must single, divorced, etc. 
+		- saving 1500 per day
+	- indira gandhi
+	- bmtc depot
+	- ttmc
+		- major bus exchange
+		- same building will have govt offices, 
+		- women's waiting rooms were created in these spaces. 
+		- the infra is there. 
+- conduct FGDs with men and women. FGD = focus group discussion
+- also need to bring attention to existing infra: waiting rooms in TTMCs. 
+	- do we need money to maintain these? 
+		- the funds are already there. 
+- what about charging stations at metros? 
+	- we have, but not
