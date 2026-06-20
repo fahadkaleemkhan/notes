@@ -1,5 +1,3 @@
-incorporate the following notes into the specs, and rewrite this folder such that i can give it a fresh claude session to execute (meaning remove any records of the back-and-forth between you and me and between me and atheeq.)  
-
 ## notes on mvp features
 - we will deploy on digital ocean since i have it.  
 - we will 

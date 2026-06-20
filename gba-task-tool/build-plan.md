@@ -1,53 +1,47 @@
-# GBA Task Tool — Build Plan & Tracker
+# GBA Ticket Tool — Build Plan & Tracker
 
-Status legend: ⬜ not started · 🟡 in progress · ✅ done · ⏸ parked
+Status legend: ⬜ not started · 🟡 in progress · ✅ done · ⏸ Phase 2
 
-## Current state
-🟡 **Milestone 0 — Spec review.** Awaiting Fahad's comments on the [spec](spec.md) before writing code.
+Read [spec.md](spec.md) first, then [fahad_notes.md](fahad_notes.md) for layout/feel. Code lives in `repos/gba-task-tool/`.
 
 ---
-
-## Milestone 0 — Spec sign-off
-- ✅ Buy-vs-build decided (build)
-- ✅ Stack chosen (Next.js PWA + Supabase)
-- ✅ Spec drafted
-- ⬜ Fahad reviews spec + answers open decisions
-- ⬜ Lock the data model
 
 ## Milestone 1 — Foundation
-- ⬜ Scaffold Next.js (PWA-ready, mobile-first) in `repos/gba-task-tool/`
-- ⬜ Supabase project (free cloud tier) + schema (tables from spec §5)
-- ⬜ Auth: magic-link login, seed the 5 team profiles
-- ⬜ Row-level security so people only edit what they should
+- ⬜ Scaffold Next.js (App Router, mobile-first, PWA-ready) in `repos/gba-task-tool/`
+- ⬜ Supabase project + schema from [spec §9](spec.md#9-data-model) (tickets, sub-tickets, assignees, contacts, entries, activity_log)
+- ⬜ Magic-link auth; seed the 5 profiles (Atheeq = lead) and a "Bengaluru 100-Day Program"
+- ⬜ Row-level security (members edit their own; lead sees all)
+- ⬜ DB triggers writing `activity_log` on status changes
 
-## Milestone 2 — Core task flow (MVP)
-- ⬜ Create / edit / list tasks
-- ⬜ Assign to one or more people (multi-assignee)
-- ⬜ Group under a program
-- ⬜ Status: Open → In Progress → Resolved
-- ⬜ Comment thread per task (update / resolution)
-- ⬜ Require a resolution comment to mark Resolved
-- ⬜ Auto activity log (DB triggers) feeding the task timeline
+## Milestone 2 — Tickets core
+- ⬜ Create / edit ticket (title, particulars, program, assignees, due date)
+- ⬜ Multi-assignee picker
+- ⬜ Sub-tickets (create under a parent, nested display)
+- ⬜ Status flow Planned → In-action (stamp started_at) → Needs review → Resolved
+- ⬜ Resolution requires a Resolved comment; reopening (→ In-action) allowed
 
-## Milestone 3 — Review views
-- ⬜ Task timeline (history + comments)
-- ⬜ "My Tasks" per person
-- ⬜ Program board (grouped by status)
+## Milestone 3 — Ticket detail (fan-out)
+- ⬜ Document-style detail view with re-assign + assignee chips, dates, particulars (double-tap to edit)
+- ⬜ **Persons to Contact**: contact dropdown, purpose field with cycling placeholders, phone/email chips with fan-out actions (Call / Copy / Save / Email)
+- ⬜ Contacts import from phone (Contact Picker API where supported) + manual-add fallback
+- ⬜ **Updates** stream (add update)
+- ⬜ **Comments** stream (add comment; mark Resolved)
 
-## Milestone 4 — Mobile polish & ship
+## Milestone 4 — Board & review views
+- ⬜ Ticket-stub board, desktop + mobile layouts
+- ⬜ Organise by: status (default) / date (asc-desc + buckets) / assignee
+- ⬜ Past-due dates render red
+- ⬜ List truncation with "… more" expander on all lists
+- ⬜ Lead review flow (resolve / send back)
+
+## Milestone 5 — Mobile polish & ship
 - ⬜ PWA install (add-to-home-screen, icons, offline shell)
-- ⬜ Mobile layout pass (the Huly lesson — phone-first)
-- ⬜ Seed the canonical GBA committee task end-to-end
-- ⬜ Migrate Supabase to self-host before go-live
+- ⬜ "Executive's desk" visual pass — document-like stubs, beautiful & simple, mobile-first
+- ⬜ Seed the canonical ticket end-to-end: *Bengaluru 100-Day Program → "Set up a committee to review the management structure of GBA" → Atheeq + Tejas*
+- ⬜ Deploy to DigitalOcean (self-hosted Supabase via Docker + Next.js app)
 
-## Phase 2 (post-MVP, parked)
+## Phase 2 (parked)
+- ⏸ Weekly digest email for the lead
 - ⏸ Push notifications
-- ⏸ Weekly digest email for Atheeq
 - ⏸ File attachments
-- ⏸ Capacitor wrap for native App Store apps (same codebase)
-- ⏸ Chat ↔ task tying (revisit only if the team wants chat in here)
-
----
-
-## Log
-- **2026-06-20** — Project kicked off. Spec + plan drafted. Repo folder created at `repos/gba-task-tool/` (git initialized, empty). Blockers removed from scope per Atheeq.
+- ⏸ Capacitor native-app wrap (same codebase)

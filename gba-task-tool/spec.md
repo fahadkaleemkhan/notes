@@ -1,100 +1,147 @@
-# GBA Task Tool — Spec
+# GBA Ticket Tool — Spec
 
-> **How to use this doc:** comment inline anywhere. Anything marked **❓DECISION** is something I want your call on. Everything else I've defaulted to a sensible choice and noted why — overrule freely.
+A self-built, mobile-first ticket & project tracker for a 5-person team delivering the **Bengaluru 100-Day Program** (Greater Bengaluru Authority). This document is the authoritative build brief. The raw UI sketch it's based on is in [fahad_notes.md](fahad_notes.md) — treat that as the source of truth for layout and feel; treat this doc as the structured specification.
 
 ---
 
-## 1. What it's for
-A lightweight task & project tracker for Atheeq's 5-person team delivering the Bengaluru 100-Day Program. The team self-updates their own tasks. Must work well on **both phone and desktop** — that's a hard requirement (it's the thing Huly got wrong).
+## 1. Overview
+A lightweight tool where a small government team tracks work as **tickets** grouped under **programs**. Team members self-update their own tickets. The lead reviews progress and signs work off. It must feel like an **executive's desk** — beautiful, simple, document-like — and work equally well on **phone and desktop** (mobile is a hard requirement).
 
-**Users (the team):** Atheeq (lead), Tejas, Teju, Sidesh Pottakati, Girish.
-You (Fahad) are building it but are *not* a team member.
+**Terminology:** the user-facing unit of work is a **ticket** (not "task").
 
-## 2. Core requirements
-1. Create a list of **tasks** (title + description).
-2. Group tasks under a **program / initiative** (e.g. "Bengaluru 100-Day Program").
-3. **Assign each task to one or more people** (e.g. Atheeq *and* Tejas).
-4. Track **status**: Open → In Progress → Resolved.
-5. **Updates** as text comments on a task.
-6. **Resolve** a task by leaving a text comment (resolution).
-7. A **review mechanism** — see what happened: per-task history, per-person view, per-program view.
-8. Good **mobile** experience (installable, works on a phone).
+## 2. Users & roles
+Five members: **Atheeq** (lead), **Tejas**, **Teju**, **Sidesh Pottakati**, **Girish**.
 
-### Removed
-- ~~Blockers~~ — **dropped at Atheeq's request.** No blocked status, no blocker comment type.
+- **Member** — creates/updates their own tickets, logs progress, moves tickets toward review.
+- **Lead** — sees everything, reviews tickets in "Needs review," resolves them or sends them back.
 
-### Example task (the canonical test case)
-- **Program:** Bengaluru 100-Day Program
-- **Task:** Set up a committee to review the management structure of GBA
-- **Assignees:** Atheeq + Tejas
-- **Status:** Open → In Progress → Resolved
-- **Resolution:** a closing text comment
+Display people by **first name** only throughout the UI.
 
-## 3. Status & comments
-- **Status values:** `Open` · `In Progress` · `Resolved`. (Three states. Simple on purpose.)
-- **Comment types:** `update` (progress note) · `resolution` (the closing comment that accompanies marking Resolved).
-- Marking a task Resolved **requires** a resolution comment — that's your "resolve via text comment" rule.
+## 3. Workflow & statuses
+Four statuses, three of them shown as columns on the board:
 
-**❓DECISION:** Do you want a way to *reopen* a Resolved task (e.g. Atheeq reviews and it's not actually done)? I'd default to **yes** — Resolved → In Progress with a comment. OK?
+`Planned → In-action → Needs review → Resolved`
 
-## 4. The review mechanism
-Three views cover "what happened":
-1. **Task timeline** — every task shows its full history: status changes + all comments, newest-relevant ordering, with author + time. This *is* the audit trail.
-2. **My Tasks** — each person sees their assigned tasks grouped by status. Their home screen.
-3. **Program board** — Atheeq's overview: all tasks in a program, grouped by status, who's on what.
+| Status | Meaning | Who moves it |
+|---|---|---|
+| **Planned** | Created, not started | — |
+| **In-action** | Work started (sets `started_at`) | Assignee |
+| **Needs review** | Assignee considers it done; awaiting lead sign-off | Assignee |
+| **Resolved** | Lead has signed off (via a resolution comment) | Lead |
 
-**❓DECISION:** Do you want a **weekly digest** (auto email/summary of what moved this week)? Useful for Atheeq, but it's Phase 2. Flag if it's a day-one must.
+Rules:
+- Moving to **In-action** stamps `started_at`.
+- **Resolving requires a resolution comment** — a comment in the Comments stream marked **Resolved** (e.g. "MoU has been signed"). This is the "resolve with a text comment" rule.
+- **Reopening is allowed:** lead can send **Needs review → In-action**, and **Resolved → In-action**, each with a comment.
+- The board (lead view) shows three columns: **Planned · In-action · Needs review**. Resolved tickets drop off the active board and are reachable via a filter/archive.
 
-## 5. Data model
+## 4. Ticket structure
+A ticket has:
+- **Title**
+- **Particulars** — a free-text body ("space to write the particulars"; double-tap to edit).
+- **Program** it belongs to.
+- **Assignees** — one or more people (e.g. Atheeq *and* Tejas). Native multi-assignee.
+- **Started date** (auto when moved to In-action) and **Due date**.
+- **Sub-tickets** — a ticket can contain sub-tickets, each with its own assignees, dates, and status. Shown nested under the parent on the board.
+- **Persons to Contact** (see §5).
+- **Updates** stream and **Comments** stream (see §6).
+
+**Due dates:** render in **red when past due**.
+
+## 5. Persons to Contact
+Each ticket carries an ordered list of contacts to reach, each phrased as: **Contact [person] to [purpose].**
+
+- **Person** — a dropdown that can pick an existing contact (e.g. "Mahendra from BBMP") or add a new one.
+- **Purpose** — a free-text field. Before the user types, it shows **cycling placeholder suggestions**, e.g. *"to schedule a meeting in office"*, *"to discuss a potential partnership"*, *"to obtain the details from…"*.
+- **Contact methods** appear as **chips**: phone, email. Tapping a chip **fans out actions** — Call · Copy · Save to contacts (phone); Email · Copy (email). On the chip, show an **icon + label** (not the raw number); reveal the raw value on tap/fan-out.
+- **Contacts source:** import from the device's phone contacts (request permission on first use), with a manual-add fallback. Imported contacts are reusable across tickets.
+  - *Technical note:* the Web **Contact Picker API** (`navigator.contacts`) works on Android Chrome only; iOS/desktop have no equivalent. So the manual-add path is required, and contact import is a progressive enhancement where supported.
+
+## 6. Updates vs Comments (two separate streams)
+Every ticket has two distinct, dated streams in its detail view:
+
+- **Updates** — the assignee's progress log. Dated entries, newest first. e.g. *"17.04.26 — Completed field-visit to Belgaum"*. An **Add update** action at the bottom.
+- **Comments** — discussion and review notes. e.g. *"Needs approval from BDA"*. One comment may be marked **Resolved** to close the ticket (*"**Resolved** — MoU has been signed"*). An **Add comment** action at the bottom.
+
+Both streams are timestamped and attributed. Together with status changes they form the ticket's history.
+
+## 7. Views & layout
+See [fahad_notes.md](fahad_notes.md) for the original sketches. Summary:
+
+### 7.1 Board (lead view) — ticket stubs
+A list of **ticket-stubs** grouped by the chosen organiser, with an **Organise by [status ▾]** control and an **Add ticket** button (top and bottom).
+
+**Desktop stub** (single row): `{title} | {assignees} | started 12.04.26 due 27.04.26 | [⋯ expand]`
+**Mobile stub** (compact): `{title} | {assignee chips}` — fewer columns, dates/detail behind expand.
+
+Sub-tickets render indented beneath their parent.
+
+**Organise by** options:
+- **Status** (default) — Planned / In-action / Needs review columns.
+- **Date** — sort by due date with ascending/descending toggle when the list is small; group into time buckets (Overdue / This week / Later) when large.
+- **Assignee** — group tickets under each person.
+
+### 7.2 Ticket detail — "fan-out"
+Tapping a stub **pulls the ticket out in a pleasing, document-like way** into the detail view containing: title, **re-assign** control + assignee chips, started/due dates, the **Particulars** body, **Persons to Contact**, the **Updates** stream, and the **Comments** stream.
+
+### 7.3 List truncation
+Every list (ticket-stubs, updates, comments, persons-to-contact) shows a limited number of entries (default ~3–5), then a **"… more"** expander to reveal the rest. Pick the cleanest UI element for this (inline expander / collapse toggle).
+
+## 8. Visual design direction
+- Looks and feels like an **executive's desk**: each ticket-stub and the fan-out detail should resemble a **real document or paper stub** — tactile, but **not heavy-handed**. Restrained, elegant.
+- **Visually beautiful and simple** above all. Reduce decisions and clutter; mobile-first.
+
+## 9. Data model
 ```
-profiles        one per team member (Atheeq, Tejas, Teju, Sidesh, Girish), linked to a login
-programs        e.g. "Bengaluru 100-Day Program"   (name, description)
-tasks           title, description, program_id,
-                status: open | in_progress | resolved,
-                priority (optional), due_date (optional),
-                created_by, created_at
-task_assignees  task_id × profile_id   ← many-to-many = native multi-assignee
-comments        task_id, author_id, body,
-                type: update | resolution,
-                created_at
-activity_log    task_id, actor, action, from→to, created_at
-                (status changes etc. — auto-generated, powers the timeline)
+profiles         first_name, full_name, role: lead | member   (linked to a login)
+programs         name, description
+tickets          title, particulars, program_id,
+                 parent_ticket_id (nullable → sub-tickets),
+                 status: planned | in_action | needs_review | resolved,
+                 started_at (set on In-action), due_date,
+                 created_by, created_at
+ticket_assignees ticket_id × profile_id          ← many-to-many = multi-assignee
+contacts         name, org, phone, email          (imported from phone or added manually; reusable)
+ticket_contacts  ticket_id, contact_id (nullable), name, org, purpose,
+                 phone, email, sort_order
+entries          ticket_id, author_id, body,
+                 type: update | comment,
+                 is_resolution (bool; only on a comment),
+                 created_at
+activity_log     ticket_id, actor, action, from→to, created_at   (auto via DB triggers; powers history)
 ```
 Notes:
-- **Multi-assignee** is handled by `task_assignees` (not a single-owner field), so "assign to Atheeq and Tejas" is first-class.
-- **Resolution** = status set to `resolved` + a `comments` row of type `resolution`.
-- **activity_log** is written automatically (database triggers) so the timeline is reliable and nobody has to maintain it.
+- **Multi-assignee** via `ticket_assignees` (no single-owner field).
+- **Sub-tickets** via `parent_ticket_id` self-reference.
+- **Updates vs Comments** are the same `entries` table split by `type`; the **Resolved** marker is `is_resolution = true` on a comment, which also moves the ticket to `resolved`.
+- **activity_log** is written automatically by Postgres triggers so history is reliable and unmaintained by hand.
 
-**❓DECISION:** Keep `priority` and `due_date`? They're optional and easy to ignore, but add fields to the form. I'd keep both but hidden-unless-set. OK?
+## 10. Tech stack & deployment
+| Layer | Choice |
+|---|---|
+| Frontend | **Next.js + React**, mobile-first, installable **PWA** (one responsive codebase = phone + desktop) |
+| Backend / DB / Auth | **Supabase** — Postgres, Auth, Realtime, Storage, row-level security |
+| Auth (MVP) | **Email magic link** (no passwords) |
+| Hosting | **DigitalOcean** (account already available). Self-host Supabase via Docker on a Droplet; deploy the Next.js app on DO. Dev may start against Supabase's free cloud tier, then migrate to DO before go-live. |
 
-## 6. Tech stack
-| Layer               | Choice                                                                                  | Why                                                                                                     |
-| ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Frontend            | **Next.js + React, mobile-first, installable PWA**                                      | One responsive codebase = phone + desktop. Directly fixes Huly's gap. No separate native apps to build. |
-| Backend / DB / Auth | **Supabase** (Postgres + Auth + Realtime + Storage + row-level security)                | Removes most of the backend grind — no hand-written auth or APIs. Live updates across devices for free. |
-| Login               | **Magic link** (email, no password)                                                     | Lowest friction for non-technical staff.                                                                |
-| Hosting             | Start on Supabase **free cloud tier**; migrate to **self-host** (Docker) before go-live | Move fast now, own the data later.                                                                      |
+**Mobile strategy:** ship as a PWA (add-to-home-screen, works on a phone). The same React code can later wrap into Capacitor for native App Store apps with no rewrite — not part of this build.
 
-**Mobile strategy:** ship as a **PWA** (add-to-home-screen, push notifications, works on a phone). If you ever want true App Store apps, the same React code wraps into Capacitor later — no rewrite. We do *not* build native apps now.
+## 11. Decisions locked
+- Unit of work is a **ticket**.
+- Statuses: **Planned · In-action · Needs review · Resolved**; resolve via a Resolved comment; reopening allowed.
+- **Multi-assignee** and **sub-tickets** are in scope.
+- **Due date** is prominent (red when past-due); **started date** auto-set on In-action. No priority field in MVP.
+- **Persons to Contact** with phone-contact import (progressive enhancement) + manual fallback.
+- Two streams: **Updates** (progress) and **Comments** (discussion + resolution).
+- Stack: **Next.js PWA + Supabase**, deployed on **DigitalOcean**, magic-link auth for MVP.
 
-**❓DECISION — login method.** Magic link is simplest but needs each person to have an email they check. Alternative: phone/OTP. Which fits this team better?
+## 12. Out of scope / Phase 2
+- **No "Blocked" status** — the flow intentionally has no blocked state.
+- Weekly digest email for the lead — Phase 2.
+- Push notifications — Phase 2.
+- File attachments (beyond contact chips) — Phase 2.
+- Capacitor native-app wrap — later.
+- Chat ↔ ticket tying, WhatsApp integration — not in scope.
 
-## 7. Explicitly out of scope (for now)
-- Blockers (removed).
-- WhatsApp integration (dropped — a good mobile app covers the need).
-- File attachments, push notifications, weekly digest → **Phase 2**, not MVP.
-- Chat ↔ task tying (you were curious about this — parked; per-task comment threads already give a light version).
-
-## 8. How we got here
-Short decision log so this makes sense weeks from now:
-1. Need: simple task tracker for Atheeq's team — tasks, multi-assignee, status, comment updates, resolution, review trail. Mobile + desktop.
-2. **Buy vs build:** requirements are commodity; the only custom-worthy piece (WhatsApp) got dropped, and the mobile-app requirement argues *against* hand-building (mobile apps are the hardest part — existing tools do it best).
-3. So the lean was *adopt*. Shortlist: Monday (best for non-technical) / ClickUp / Plane (free OSS). **Monday ruled out on cost.** Tried **Huly** — loved it, but **no mobile** = dealbreaker.
-4. **Conclusion: build a mobile-first PWA** — get the Huly-like feel *with* mobile, self-hosted and free. Stack chosen to minimize build effort (Supabase does the heavy backend lifting).
-
-## 9. Open decisions (summary — your calls)
-- [ ] Reopen Resolved tasks? (default: yes)
-- [ ] Weekly digest day-one, or Phase 2? (default: Phase 2)
-- [ ] Keep priority + due_date? (default: yes, hidden-unless-set)
-- [ ] Login: magic link vs phone/OTP?
-- [ ] Product name: "Setu" or something else?
+## 13. Reference
+- [fahad_notes.md](fahad_notes.md) — original raw UI sketches and notation. The layouts and interaction details there are authoritative; this spec structures them.
